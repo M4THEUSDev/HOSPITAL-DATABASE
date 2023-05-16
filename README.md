@@ -6,9 +6,9 @@
 
 
 
-<p align="Center"> O hospital precisa de um sistema para sua área clínica que facilite o controle das consultas realizadas. Os médicos que atuam no hospital podem ser generalistas, especialistas ou residentes, e seus dados pessoais são cadastrados em planilhas digitais. Cada médico pode ter uma ou mais especialidades, como pediatria, clínica geral, gastroenterologia e dermatologia. Alguns registros antigos ainda estão em formulários de papel, mas é necessário inserir esses dados no novo sistema. </p>
+O hospital precisa de um sistema para sua área clínica que facilite o controle das consultas realizadas. Os médicos que atuam no hospital podem ser generalistas, especialistas ou residentes, e seus dados pessoais são cadastrados em planilhas digitais. Cada médico pode ter uma ou mais especialidades, como pediatria, clínica geral, gastroenterologia e dermatologia. Alguns registros antigos ainda estão em formulários de papel, mas é necessário inserir esses dados no novo sistema.
 
-<p align="Center"> Os pacientes também precisam ser cadastrados no sistema, contendo informações pessoais, como nome, data de nascimento, endereço, telefone e e-mail, além de documentos como CPF e RG. É importante registrar o convênio de cada paciente, incluindo nome, CNPJ e tempo de carência.</p>
+Os pacientes também precisam ser cadastrados no sistema, contendo informações pessoais, como nome, data de nascimento, endereço, telefone e e-mail, além de documentos como CPF e RG. É importante registrar o convênio de cada paciente, incluindo nome, CNPJ e tempo de carência.
 
 As consultas também são registradas em planilhas, contendo a data e a hora da realização, o médico responsável, o paciente e o valor da consulta ou o nome do convênio, juntamente com o número da carteira. Além disso, é necessário indicar a especialidade médica procurada pelo paciente durante a consulta.
 
