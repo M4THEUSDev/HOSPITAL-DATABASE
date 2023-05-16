@@ -19,6 +19,7 @@ Com esse novo sistema, o hospital terá um controle mais eficiente das consultas
 <img src="Diagrama Entidade-Relacionamento_ Hospital (1).png"> </img>
 <br>
 <hr>
+<h2 align="center">2ª PARTE - Os Segredos do Hospital. </h2>
 <h3 align="center"> Modelagem lógica</h3>
 <p> No hospital, as internações têm sido registradas por meio de formulários eletrônicos que gravam os dados em arquivos. Para cada internação, são anotadas a data de entrada, a data prevista de alta e a data efetiva de alta, além da descrição textual dos procedimentos a serem realizados. As internações precisam ser vinculadas a quartos, com a numeração e o tipo. Cada tipo de quarto tem sua descrição e o seu valor diário (a princípio, o hospital trabalha com apartamentos, quartos duplos e enfermaria).</p>
 <p> Também é necessário controlar quais profissionais de enfermagem estarão responsáveis por acompanhar o paciente durante sua internação. Para cada enfermeiro(a), é necessário nome, CPF e registro no conselho de enfermagem (CRE).</p>
