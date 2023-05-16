@@ -16,4 +16,4 @@ Além disso, pretende-se informatizar as receitas médicas de modo que, ao encer
 
 Com esse novo sistema, o hospital terá um controle mais eficiente das consultas realizadas, facilitando o acesso às informações dos médicos, pacientes, convênios e receitas médicas, além de permitir a migração dos registros antigos para o formato digital. Isso contribuirá para um atendimento mais ágil e preciso, melhorando o cuidado com os pacientes.
 
-<img src="/Diagrama Entidade-Relacionamento_ Hospital (1).png></img>
+<img src="Diagrama Entidade-Relacionamento_ Hospital (1).png></img>
