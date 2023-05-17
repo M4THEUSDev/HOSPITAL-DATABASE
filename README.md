@@ -47,4 +47,18 @@ Este repositório contém os scripts de povoamento das tabelas desenvolvidas na 
 Por fim, é importante destacar que os dados de tipo de quarto, convênio e especialidade são essenciais para a operação do sistema e, portanto, devem ser povoados assim que o sistema for instalado. Assim, garantimos que o sistema esteja completo e funcional desde o seu primeiro uso.
 
 O script se encontra no repositório, "hospital.sql"
+<hr>
+<h2 align="center">PARTE 4 - Alterando o banco de dados</h2>
+<h3 align="center"> Alterações na tabela e dados. </h3>
+
+-- Crie um script que adicione uma coluna “em_atividade” para os médicos, indicando se ele ainda está atuando no hospital ou não. 
+
+ALTER TABLE medico ADD em_atividade BOOLEAN NOT NULL DEFAULT TRUE;
+
+-- Atualizando ao menos 2 médicos como inativo
+UPDATE medico SET em_atividade = FALSE WHERE cpf = 12345678901;
+UPDATE medico SET em_atividade = FALSE WHERE cpf = 23456789012;
+
+-- Definindo os demais médicos como ativos
+UPDATE medico SET em_atividade = TRUE WHERE cpf NOT IN (12345678901, 23456789012);
 
