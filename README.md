@@ -62,3 +62,92 @@ UPDATE medico SET em_atividade = FALSE WHERE cpf = 23456789012;
 -- Definindo os demais médicos como ativos
 UPDATE medico SET em_atividade = TRUE WHERE cpf NOT IN (12345678901, 23456789012);
 
+<hr>
+<h2 align="center">PARTE 5 - Consultas</h2>
+<h3 align="center"> As Relíquias dos Dados </h3>
+
+-- Todos os dados e o valor médio das consultas do ano de 2020 e das que foram feitas sob convênio.
+
+SELECT c.*, AVG(c.valor_consulta) AS valor_consulta
+FROM consultas AS c
+JOIN convenio AS conv ON c.id_convenio = conv.id_convenio
+WHERE YEAR(c.data_realizacao) = 2020
+GROUP BY c.id_consulta
+
+-- Todos os dados das internações que tiveram data de alta maior que a data prevista para a alta.
+SELECT * FROM internacao WHERE data_alta > data_prev_alta;
+
+-- Receituário completo da primeira consulta registrada com receituário associado.
+SELECT * FROM consultas AS c JOIN receitas AS r ON c.id_consulta = r.id_consulta ORDER BY c.data_realizacao, c.hora_realizacao LIMIT 1;
+
+
+-- Para obter os dados da consulta de maior valor e da consulta de menor valor (ambas não realizadas sob convênio).
+
+SELECT * FROM consultas WHERE id_convenio IS NULL ORDER BY valor_consulta DESC LIMIT 1;
+
+SELECT * FROM consultas WHERE id_convenio IS NULL ORDER BY valor_consulta ASC LIMIT 1;
+
+ -- Todos os dados das internações em seus respectivos quartos, calculando o total da internação a partir do valor de diária do quarto e o número de dias entre a entrada e a alta.
+
+ALTER TABLE Internacao
+ADD COLUMN id_quarto INT;
+
+ALTER TABLE Internacao
+		ADD CONSTRAINT fk_id_quarto  FOREIGN KEY (id_quarto) REFERENCES quarto (id_quarto);
+
+
+SELECT i.*, q.numero, t.valor_diaria,
+       DATEDIFF(i.data_alta, i.data_entrada) AS num_dias,
+       DATEDIFF(i.data_alta, i.data_entrada) * t.valor_diaria AS total_internacao
+FROM Internacao AS i
+JOIN Quarto AS q ON i.id_quarto = q.id_quarto
+JOIN tipo_quarto AS t ON q.tipo = t.descricao;
+
+-- Data, procedimento e número de quarto de internações em quartos do tipo “apartamento”.
+
+SELECT i.data_entrada, i.procedimento, q.numero
+FROM Internacao AS i
+JOIN Quarto AS q ON i.id_quarto = q.id_quarto
+JOIN tipo_quarto AS t ON q.tipo = t.descricao
+WHERE t.descricao = 'apartamento';
+
+-- Nome do paciente, data da consulta e especialidade de todas as consultas em que os pacientes eram menores de 18 anos na data da consulta e cuja especialidade não seja “pediatria”, ordenando por data de realização da consulta.
+
+SELECT p.nome_paciente, c.data_realizacao, c.especialidade
+FROM consultas AS c
+JOIN paciente AS p ON c.id_paciente = p.id_paciente
+WHERE TIMESTAMPDIFF(YEAR, p.data_nascimento, c.data_realizacao) < 18
+  AND c.especialidade <> 'pediatria'
+ORDER BY c.data_realizacao;
+
+-- Nome do paciente, nome do médico, data da internação e procedimentos das internações realizadas por médicos da especialidade “gastroenterologia”, que tenham acontecido em “enfermaria”.
+SELECT p.nome_paciente, m.nome_med, i.data_entrada, i.procedimento
+FROM Internacao AS i
+JOIN Medico AS m ON i.id_medico = m.id_medico
+JOIN Paciente AS p ON i.id_paciente = p.id_paciente
+JOIN Especialidades AS e ON m.id_especialidades = e.id_especialidades
+JOIN Quarto AS q ON i.id_quarto = q.id_quarto
+JOIN tipo_quarto AS t ON q.tipo = t.descricao
+WHERE e.especialidades = 'Gastrenterologia' AND t.descricao = 'enfermaria';
+
+-- Os nomes dos médicos, seus CRMs e a quantidade de consultas que cada um realizou.
+
+SELECT m.nome_med, m.id_medico, COUNT(c.id_consulta) AS quantidade_consultas
+FROM medico AS m
+LEFT JOIN consultas AS c ON m.id_medico = c.id_medico
+GROUP BY m.id_medico;
+
+-- Todos os médicos que tenham "Gabriel" no nome. 
+
+SELECT *
+FROM medico
+WHERE nome_med LIKE '%Gabriel%';
+
+-- Os nomes, CREs e número de internações de enfermeiros que participaram de mais de uma internação.
+
+SELECT e.nome, e.cre, COUNT(i.id_internacao) AS quantidade_internacoes
+FROM enfermeiro AS e
+JOIN internacao_enfermeiro AS p ON e.id_enfermeiro = p.id_enfermeiro
+JOIN internacao AS i ON p.id_internacao = i.id_internacao
+GROUP BY e.id_enfermeiro
+HAVING COUNT(i.id_internacao) > 1;
